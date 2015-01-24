@@ -140,7 +140,8 @@ void docTu(char *fileName, word coNghia[], char voNghia[][WORD_MAX], int *d, int
 				//	d++;
 					if(isStopW(temp) == 1){/*temp co mat trong stopw.txt*/
 				//		printf("Trung trong stopw.txt=>Loai\n");
-						strcpy(&(voNghia[(*e)++][256]), temp);
+						strcpy(&(voNghia[(*e)++][WORD_MAX]), temp);
+					//	printf("%s\n", temp);
 					}
 					else if(beCheck == 1){ /*kiem tra neu nhu tu bat dau bang ki tu hoa va khong phai la tu dau doan van.*/
 					//	kiem tra la DTK
@@ -191,9 +192,9 @@ main(){
 	for(i = 0; i < d; i++){
 		printf("%-10s\t%-4d\t%-10s\n", coNghia[i].text,coNghia[i].count,coNghia[i].pos);
 	}
-//	printf("Danh sach vo nghia\n______________________\n______________________\n");
-//	for(i = 0; i < e; i++){
-//		printf("%10s\n",voNghia[i]);
-//	}
+	printf("Danh sach vo nghia\n______________________\n______________________\n");
+	for(i = 0; i < e; i++){
+		printf("%10s\n",voNghia[i]);
+	}
 
 }
