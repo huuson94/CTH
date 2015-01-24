@@ -48,20 +48,7 @@ int kiemTra(word coNghia[], int *d, int e1, char *str){
 }
 
 
-int isDTR(char *str){
-	FILE *fOpen = fopen("vanban.txt","r");
-	char *line;
-	while(1){
-		fgets(line, 100, fOpen);
-		if(feof(fOpen) == 1) break;
-		else{
 
-			line = strstr(line,str);
-		}
-	}
-
-	fclose(fOpen);
-}
 
 int isStopW(char *s){
 	FILE *fOpen = fopen("stopw.txt","r");
@@ -109,13 +96,18 @@ void docTu(char *fileName, word coNghia[], char voNghia[][WORD_MAX], int *d, int
 	}
 	
 	char temp[WORD_MAX];
-	char c, t; /*c la bien ki tu tam thoi, t la de luu dau '.'*/
+	char c =' ';
+	char t=' ', t1 = ' '; /*c la bien ki tu tam thoi, t la de luu dau '.'*/
 	int i = 0;
 	int e1=1; /*dem so dong xuat hien cua tu*/
 	//int d=0; //dem coNghia
 	int k = 0, h=0; //dem dau '.'
 	int beCheck;
+	int isDTK = 0;
+	int isStop = 0;
 	while(1){
+		t1 = t;
+		t = c;
 		c=fgetc(fOpen);
 		
 
@@ -138,18 +130,26 @@ void docTu(char *fileName, word coNghia[], char voNghia[][WORD_MAX], int *d, int
 					temp[i]='\0';
 				//	printf("1.%s\n",temp);
 				//	d++;
-					if(isStopW(temp) == 1){/*temp co mat trong stopw.txt*/
+					isStop = isStopW(temp);
+					if(isStop == 1){/*temp co mat trong stopw.txt*/
 				//		printf("Trung trong stopw.txt=>Loai\n");
 						strcpy(&(voNghia[(*e)++][WORD_MAX]), temp);
 					//	printf("%s\n", temp);
 					}
-					else if(beCheck == 1){ /*kiem tra neu nhu tu bat dau bang ki tu hoa va khong phai la tu dau doan van.*/
-					//	kiem tra la DTK
-					//	printf("2.%s\n", temp);	
+					/*kiem tra neu nhu tu bat dau bang ki tu hoa va khong phai la tu dau doan van.
+						=> Khong the kiem tra tu dau doan van co phai DTR hay khong. => Coi nhu khong la DTR
+						=> Khong the phat hien neu DTR dung sau dau '.'
+					*/
+					if(isStop == 0 && beCheck == 1 && d!= 0){ 
 					
-						beCheck = 0;
+						//printf("2.%s\n", temp);	
+						if(t != '.' && t1 != '.') {
+							//printf("%s\n", "la ten rieng" );
+							isDTK = 1;
+							strcpy(&voNghia[(*e)++][WORD_MAX],temp);	
+						}
 					}
-					else {
+					if(isStop == 0 && (beCheck == 0 || isDTK == 0)){
 					// 	printf("3.%s\n", temp);
 						kiemTra(coNghia, d, e1, temp);
 						
