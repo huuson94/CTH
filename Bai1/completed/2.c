@@ -49,7 +49,7 @@ char** docTu(char *fileName){
 		else{
 			fgets(line, 100, fOpen);
 			printf("%s\n", line);
-
+			
 		}
 	}
 

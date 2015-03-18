@@ -1,0 +1,8 @@
+#!/bin/bash
+./scanner ../test/example1.kpl > myre.txt ; diff ./myre.txt ../test/result1.txt 
+./scanner ../test/example2.kpl > myre.txt ; diff ./myre.txt ../test/result2.txt 
+./scanner ../test/example3.kpl > myre.txt ; diff ./myre.txt ../test/result3.txt 
+./scanner ../test/example4.kpl > myre.txt ; diff ./myre.txt ../test/result4.txt 
+./scanner ../test/example5.kpl > myre.txt ; diff ./myre.txt ../test/result5.txt 
+./scanner ../test/example6.kpl > myre.txt ; diff ./myre.txt ../test/result6.txt 
+./scanner ../test/example7.kpl > myre.txt ; diff ./myre.txt ../test/result7.txt 
