@@ -12,6 +12,7 @@
 enum TypeClass {
   TP_INT,
   TP_CHAR,
+  TP_FLOAT,
   TP_ARRAY
 };
 
@@ -45,6 +46,7 @@ struct ConstantValue_ {
   union {
     int intValue;
     char charValue;
+    float floatValue;
   };
 };
 
@@ -137,6 +139,7 @@ typedef struct SymTab_ SymTab;
 
 Type* makeIntType(void);
 Type* makeCharType(void);
+Type* makeFloatType(void);
 Type* makeArrayType(int arraySize, Type* elementType);
 Type* duplicateType(Type* type);
 int compareType(Type* type1, Type* type2);

@@ -44,6 +44,7 @@ void compileProgram(void) {
 
     eat(SB_SEMICOLON);
 
+    
     compileBlock();
     eat(SB_PERIOD);
 
@@ -117,7 +118,7 @@ void compileBlock3(void) {
 
             eat(SB_COLON);
             varType = compileType();
-
+            
             varObj->varAttrs->type = varType;
             declareObject(varObj);
 
@@ -284,6 +285,10 @@ Type* compileType(void) {
             eat(KW_CHAR);
             type = makeCharType();
             break;
+        case KW_FLOAT: 
+            eat(KW_FLOAT);
+            type = makeFloatType();
+            break;
         case KW_ARRAY:
             eat(KW_ARRAY);
             eat(SB_LSEL);
@@ -296,7 +301,7 @@ Type* compileType(void) {
             elementType = compileType();
             type = makeArrayType(arraySize, elementType);
             break;
-        case TK_IDENT:
+        case TK_IDENT: 
             eat(TK_IDENT);
             obj = checkDeclaredType(currentToken->string);
             type = duplicateType(obj->typeAttrs->actualType);
@@ -320,6 +325,10 @@ Type* compileBasicType(void) {
             eat(KW_CHAR);
             type = makeCharType();
             break;
+        case KW_FLOAT:
+            eat(KW_FLOAT);
+            type = makeFloatType();
+            break;    
         default:
             error(ERR_INVALID_BASICTYPE, lookAhead->lineNo, lookAhead->colNo);
             break;

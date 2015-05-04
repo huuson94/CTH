@@ -185,11 +185,27 @@ Token* getToken(void) {
   case CHAR_PERIOD:
     ln = lineNo;
     cn = colNo;
+    char temp[MAX_IDENT_LEN +1];
+    int i =0;
+    temp[i++] = '.';
     readChar();
-    if ((currentChar != EOF) && (charCodes[currentChar] == CHAR_RPAR)) {
+    if(charCodes[currentChar] == CHAR_RPAR){
       readChar();
       return makeToken(SB_RSEL, ln, cn);
-    } else return makeToken(SB_PERIOD, ln, cn);
+    }
+    if(charCodes[currentChar] == CHAR_DIGIT){
+      while(charCodes[currentChar] == CHAR_DIGIT){
+        temp[i++] = currentChar;
+        readChar();
+      }
+      token = makeToken(TK_NUMBER, ln, cn);
+      strcpy(token->string,temp);
+      token->value = atof(temp);
+      return token;
+    }
+    token = makeToken(SB_PERIOD, ln, cn);
+    readChar();
+    return token;
   case CHAR_SEMICOLON:
     token = makeToken(SB_SEMICOLON, lineNo, colNo);
     readChar(); 
@@ -263,6 +279,7 @@ void printToken(Token *token) {
   case KW_VAR: printf("KW_VAR\n"); break;
   case KW_INTEGER: printf("KW_INTEGER\n"); break;
   case KW_CHAR: printf("KW_CHAR\n"); break;
+  case KW_FLOAT: printf("KW_FLOAT\n"); break;
   case KW_ARRAY: printf("KW_ARRAY\n"); break;
   case KW_OF: printf("KW_OF\n"); break;
   case KW_FUNCTION: printf("KW_FUNCTION\n"); break;
