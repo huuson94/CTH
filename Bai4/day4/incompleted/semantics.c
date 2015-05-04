@@ -109,25 +109,37 @@ Object* checkDeclaredLValueIdent(char* name) {
   return obj;
 }
 
-
 void checkIntType(Type* type) {
-  // TODO
+    // TODO
+    if ((type != NULL) && (type->typeClass == TP_INT))
+        return;
+    else error(ERR_TYPE_INCONSISTENCY, currentToken->lineNo, currentToken->colNo);
 }
 
 void checkCharType(Type* type) {
-  // TODO
+    // TODO
+    if ((type != NULL) && (type->typeClass == TP_CHAR))
+        return;
+    else error(ERR_TYPE_INCONSISTENCY, currentToken->lineNo, currentToken->colNo);
 }
 
 void checkBasicType(Type* type) {
-  // TODO
+    // TODO
+    if ((type != NULL) && ((type->typeClass == TP_INT) || (type->typeClass == TP_CHAR)))
+        return;
+    else error(ERR_TYPE_INCONSISTENCY, currentToken->lineNo, currentToken->colNo);
 }
 
 void checkArrayType(Type* type) {
-  // TODO
+    // TODO
+    if ((type != NULL) && (type->typeClass == TP_ARRAY))
+        return;
+    else error(ERR_TYPE_INCONSISTENCY, currentToken->lineNo, currentToken->colNo);
 }
 
 void checkTypeEquality(Type* type1, Type* type2) {
-  // TODO
+    // TODO
+    if (compareType(type1, type2) == 0)
+        error(ERR_TYPE_INCONSISTENCY, currentToken->lineNo, currentToken->colNo);
 }
-
 
