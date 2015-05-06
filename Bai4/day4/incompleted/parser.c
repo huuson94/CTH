@@ -420,6 +420,9 @@ void compileStatement(void) {
         case KW_FOR:
             compileForSt();
             break;
+        case KW_REPEAT:
+            compileRepeatSt();
+            break;
             // EmptySt needs to check FOLLOW tokens
         case SB_SEMICOLON:
         case KW_END:
@@ -529,6 +532,13 @@ void compileForSt(void) {
     eat(KW_DO);
     compileStatement();
 
+}
+
+void compileRepeatSt(void) {
+    eat(KW_REPEAT);
+    compileStatement();
+    eat(KW_UNTIL);
+    compileCondition();
 }
 
 void compileArgument(Object* param) {

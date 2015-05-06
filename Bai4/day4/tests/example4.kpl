@@ -30,6 +30,18 @@ BEGIN
      END
 END;
 
+PROCEDURE OUTPUT1;
+VAR I : INTEGER;
+	S: FLOAT;
+BEGIN
+	S:= 1.1;
+  REPEAT
+     BEGIN
+       S := S + B(.I.);
+       I := I + 1;
+     END UNTIL I <= N
+END;
+
 FUNCTION SUM : FLOAT;
 VAR I: INTEGER;
     S : FLOAT;
