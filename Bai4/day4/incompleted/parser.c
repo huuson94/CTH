@@ -17,6 +17,7 @@ Token *currentToken;
 Token *lookAhead;
 
 extern Type* intType;
+extern Type* floatType;
 extern Type* charType;
 extern SymTab* symtab;
 
@@ -44,7 +45,7 @@ void compileProgram(void) {
 
     eat(SB_SEMICOLON);
 
-    
+
     compileBlock();
     eat(SB_PERIOD);
 
@@ -118,7 +119,7 @@ void compileBlock3(void) {
 
             eat(SB_COLON);
             varType = compileType();
-            
+
             varObj->varAttrs->type = varType;
             declareObject(varObj);
 
@@ -200,9 +201,13 @@ ConstantValue* compileUnsignedConstant(void) {
     Object* obj;
 
     switch (lookAhead->tokenType) {
-        case TK_NUMBER:
-            eat(TK_NUMBER);
+        case TK_INT:
+            eat(TK_INT);
             constValue = makeIntConstant(currentToken->value);
+            break;
+        case TK_FLOAT:
+            eat(TK_FLOAT);
+            constValue = makeFloatConstant(currentToken->value);
             break;
         case TK_IDENT:
             eat(TK_IDENT);
@@ -251,9 +256,13 @@ ConstantValue* compileConstant2(void) {
     Object* obj;
 
     switch (lookAhead->tokenType) {
-        case TK_NUMBER:
-            eat(TK_NUMBER);
+        case TK_INT:
+            eat(TK_INT);
             constValue = makeIntConstant(currentToken->value);
+            break;
+        case TK_FLOAT:
+            eat(TK_FLOAT);
+            constValue = makeFloatConstant(currentToken->value);
             break;
         case TK_IDENT:
             eat(TK_IDENT);
@@ -285,14 +294,14 @@ Type* compileType(void) {
             eat(KW_CHAR);
             type = makeCharType();
             break;
-        case KW_FLOAT: 
+        case KW_FLOAT:
             eat(KW_FLOAT);
             type = makeFloatType();
             break;
         case KW_ARRAY:
             eat(KW_ARRAY);
             eat(SB_LSEL);
-            eat(TK_NUMBER);
+            eat(TK_INT);
 
             arraySize = currentToken->value;
 
@@ -301,7 +310,7 @@ Type* compileType(void) {
             elementType = compileType();
             type = makeArrayType(arraySize, elementType);
             break;
-        case TK_IDENT: 
+        case TK_IDENT:
             eat(TK_IDENT);
             obj = checkDeclaredType(currentToken->string);
             type = duplicateType(obj->typeAttrs->actualType);
@@ -328,7 +337,7 @@ Type* compileBasicType(void) {
         case KW_FLOAT:
             eat(KW_FLOAT);
             type = makeFloatType();
-            break;    
+            break;
         default:
             error(ERR_INVALID_BASICTYPE, lookAhead->lineNo, lookAhead->colNo);
             break;
@@ -448,7 +457,7 @@ void compileAssignSt(void) {
     // TODO: parse the assignment and check type consistency
     Type* varType;
     Type* expType;
-
+    
     varType = compileLValue();
     eat(SB_ASSIGN);
     expType = compileExpression();
@@ -622,12 +631,12 @@ Type* compileExpression(void) {
         case SB_PLUS:
             eat(SB_PLUS);
             type = compileExpression2();
-            checkIntType(type);
+            checkNumberType(type);
             break;
         case SB_MINUS:
             eat(SB_MINUS);
             type = compileExpression2();
-            checkIntType(type);
+            checkNumberType(type);
             break;
         default:
             type = compileExpression2();
@@ -656,19 +665,19 @@ Type* compileExpression3(void) {
         case SB_PLUS:
             eat(SB_PLUS);
             type1 = compileTerm();
-            checkIntType(type1);
+            checkNumberType(type1);
             type2 = compileExpression3();
             if (type2 != NULL)
-                checkIntType(type2);
+                checkNumberType(type2);
             return type1;
             break;
         case SB_MINUS:
             eat(SB_MINUS);
             type1 = compileTerm();
-            checkIntType(type1);
+            checkNumberType(type1);
             type2 = compileExpression3();
             if (type2 != NULL)
-                checkIntType(type2);
+                checkNumberType(type2);
             return type1;
             break;
             // check the FOLLOW set
@@ -713,16 +722,16 @@ Type* compileTerm2(Type* argType1) {
     switch (lookAhead->tokenType) {
         case SB_TIMES:
             eat(SB_TIMES);
-            checkIntType(argType1);
+            checkNumberType(argType1);
             argType2 = compileFactor();
-            checkIntType(argType2);
+            checkNumberType(argType2);
             resultType = compileTerm2(argType1);
             break;
         case SB_SLASH:
             eat(SB_SLASH);
-            checkIntType(argType1);
+            checkNumberType(argType1);
             argType2 = compileFactor();
-            checkIntType(argType2);
+            checkNumberType(argType2);
             resultType = compileTerm2(argType1);
             break;
             // check the FOLLOW set
@@ -758,9 +767,13 @@ Type* compileFactor(void) {
     Object* obj;
 
     switch (lookAhead->tokenType) {
-        case TK_NUMBER:
-            eat(TK_NUMBER);
+        case TK_INT:
+            eat(TK_INT);
             type = intType;
+            break;
+        case TK_FLOAT:
+            eat(TK_FLOAT);
+            type = floatType;
             break;
         case TK_CHAR:
             eat(TK_CHAR);

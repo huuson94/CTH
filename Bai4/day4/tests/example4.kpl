@@ -1,10 +1,12 @@
 PROGRAM  EXAMPLE4;  (* Example 4 *)
 CONST MAX = 10;
 TYPE T = INTEGER;
+	 V = FLOAT;
 VAR  A : ARRAY(. 10 .) OF T;
+	B : ARRAY(. 10 .) OF V;
      N : INTEGER;
      CH : CHAR;
-
+	F: FLOAT;
 PROCEDURE INPUT;
 VAR I : INTEGER;
     TMP : INTEGER;
@@ -24,15 +26,15 @@ BEGIN
      END
 END;
 
-FUNCTION SUM : INTEGER;
+FUNCTION SUM : FLOAT;
 VAR I: INTEGER;
-    S : INTEGER;
+    S : FLOAT;
 BEGIN
-    S := 0;
+    S := 1.1;
     I := 1;
     WHILE I <= N DO
      BEGIN
-       S := S + A(.I.);
+       S := S + B(.I.);
        I := I + 1;
      END
 END;
@@ -43,7 +45,7 @@ BEGIN
      BEGIN
        CALL INPUT;
        CALL OUTPUT;
-       CALL WRITEI(SUM);
+       CALL WRITEF(SUM);
        CH := READC;
      END
 END.  (* Example 4 *)

@@ -11,7 +11,7 @@
 #define KEYWORDS_COUNT 21
 
 typedef enum {
-  TK_NONE, TK_IDENT, TK_NUMBER, TK_CHAR, TK_EOF,
+  TK_NONE, TK_IDENT, TK_INT, TK_FLOAT, TK_CHAR, TK_EOF,
 
   KW_PROGRAM, KW_CONST, KW_TYPE, KW_VAR,
   KW_INTEGER, KW_CHAR, KW_ARRAY, KW_OF, 
@@ -30,7 +30,7 @@ typedef struct {
   char string[MAX_IDENT_LEN + 1];
   int lineNo, colNo;
   TokenType tokenType;
-  int value;
+  float value;
 } Token;
 
 TokenType checkKeyword(char *string);

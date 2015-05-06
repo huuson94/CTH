@@ -76,17 +76,26 @@ Token* readIdentKeyword(void) {
 }
 
 Token* readNumber(void) {
-  Token *token = makeToken(TK_NUMBER, lineNo, colNo);
-  int count = 0;
-
-  while ((currentChar != EOF) && (charCodes[currentChar] == CHAR_DIGIT)) {
-    token->string[count++] = (char)currentChar;
+  int periodCount = 0;
+  int isFloat = 0;
+  Token *temp = (Token*)malloc(sizeof(Token) *1);
+  char str[MAX_IDENT_LEN +1];
+  int i =0;
+  while(charCodes[currentChar] == CHAR_DIGIT || charCodes[currentChar] == CHAR_PERIOD){
+    if(periodCount == 1 && charCodes[currentChar] == CHAR_PERIOD) break;
+    if(periodCount == 0 && charCodes[currentChar] == CHAR_PERIOD) {
+        periodCount++;
+        isFloat = 1;
+    }
+    str[i++] = currentChar;
     readChar();
   }
-
-  token->string[count] = '\0';
-  token->value = atoi(token->string);
-  return token;
+  str[i] = '\0';
+  if( isFloat == 1) temp = makeToken(TK_FLOAT, lineNo, colNo);
+    else temp = makeToken(TK_INT, lineNo, colNo);
+  strcpy(temp->string,str);
+  temp->value = atof(str);
+  return temp;
 }
 
 Token* readConstChar(void) {
@@ -185,24 +194,24 @@ Token* getToken(void) {
   case CHAR_PERIOD:
     ln = lineNo;
     cn = colNo;
-    char temp[MAX_IDENT_LEN +1];
-    int i =0;
-    temp[i++] = '.';
+//    char temp[MAX_IDENT_LEN +1];
+//    int i =0;
+//    temp[i++] = '.';
     readChar();
     if(charCodes[currentChar] == CHAR_RPAR){
       readChar();
       return makeToken(SB_RSEL, ln, cn);
     }
-    if(charCodes[currentChar] == CHAR_DIGIT){
-      while(charCodes[currentChar] == CHAR_DIGIT){
-        temp[i++] = currentChar;
-        readChar();
-      }
-      token = makeToken(TK_NUMBER, ln, cn);
-      strcpy(token->string,temp);
-      token->value = atof(temp);
-      return token;
-    }
+//    if(charCodes[currentChar] == CHAR_DIGIT){
+//      while(charCodes[currentChar] == CHAR_DIGIT){
+//        temp[i++] = currentChar;
+//        readChar();
+//      }
+//      token = makeToken(TK_NUMBER, ln, cn);
+//      strcpy(token->string,temp);
+//      token->value = atof(temp);
+//      return token;
+//    }
     token = makeToken(SB_PERIOD, ln, cn);
     readChar();
     return token;
@@ -269,7 +278,8 @@ void printToken(Token *token) {
   switch (token->tokenType) {
   case TK_NONE: printf("TK_NONE\n"); break;
   case TK_IDENT: printf("TK_IDENT(%s)\n", token->string); break;
-  case TK_NUMBER: printf("TK_NUMBER(%s)\n", token->string); break;
+  case TK_INT: printf("TK_INT(%s)\n", token->string); break;
+  case TK_FLOAT: printf("TK_FLOAT(%s)\n", token->string); break;
   case TK_CHAR: printf("TK_CHAR(\'%s\')\n", token->string); break;
   case TK_EOF: printf("TK_EOF\n"); break;
 

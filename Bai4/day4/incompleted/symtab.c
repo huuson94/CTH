@@ -19,7 +19,7 @@ void freeReferenceList(ObjectNode *objList);
 SymTab* symtab;
 Type* intType;
 Type* charType;
-
+Type* floatType;
 /******************* Type utilities ******************************/
 
 Type* makeIntType(void) {
@@ -301,6 +301,12 @@ void initSymTab(void) {
     param->paramAttrs->type = makeIntType();
     addObject(&(obj->procAttrs->paramList), param);
     addObject(&(symtab->globalObjectList), obj);
+    
+    obj = createProcedureObject("WRITEF");
+    param = createParameterObject("f", PARAM_VALUE, obj);
+    param->paramAttrs->type = makeFloatType();
+    addObject(&(obj->procAttrs->paramList), param);
+    addObject(&(symtab->globalObjectList), obj);
 
     obj = createProcedureObject("WRITEC");
     param = createParameterObject("ch", PARAM_VALUE, obj);
@@ -312,7 +318,9 @@ void initSymTab(void) {
     addObject(&(symtab->globalObjectList), obj);
 
     intType = makeIntType();
+    floatType = makeFloatType();
     charType = makeCharType();
+    
 }
 
 void cleanSymTab(void) {

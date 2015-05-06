@@ -19,8 +19,9 @@ Object* checkDeclaredProcedure(char *name);
 Object* checkDeclaredLValueIdent(char *name);
 
 void checkIntType(Type* type);
-void checkCharType(Type* type);
 void checkFloatType(Type* type);
+void checkNumberType(Type* type);
+void checkCharType(Type* type);
 void checkArrayType(Type* type);
 void checkBasicType(Type* type);
 void checkTypeEquality(Type* type1, Type* type2);
