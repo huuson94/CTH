@@ -17,11 +17,14 @@ void printType(Type* type) {
         case TP_INT:
             printf("Int");
             break;
+        case TP_FLOAT:
+            printf("Float");
+            break;
         case TP_CHAR:
             printf("Char");
             break;
-        case TP_FLOAT:
-            printf("Float");
+        case TP_STRING:
+            printf("String");
             break;
         case TP_ARRAY:
             printf("Arr(%d,", type->arraySize);

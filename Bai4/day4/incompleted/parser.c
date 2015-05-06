@@ -290,13 +290,17 @@ Type* compileType(void) {
             eat(KW_INTEGER);
             type = makeIntType();
             break;
+        case KW_FLOAT:
+            eat(KW_FLOAT);
+            type = makeFloatType();
+            break;
         case KW_CHAR:
             eat(KW_CHAR);
             type = makeCharType();
             break;
-        case KW_FLOAT:
-            eat(KW_FLOAT);
-            type = makeFloatType();
+        case KW_STRING:
+            eat(KW_STRING);
+            type = makeStringType();
             break;
         case KW_ARRAY:
             eat(KW_ARRAY);
@@ -330,13 +334,17 @@ Type* compileBasicType(void) {
             eat(KW_INTEGER);
             type = makeIntType();
             break;
+        case KW_FLOAT:
+            eat(KW_FLOAT);
+            type = makeFloatType();
+            break;
         case KW_CHAR:
             eat(KW_CHAR);
             type = makeCharType();
             break;
-        case KW_FLOAT:
-            eat(KW_FLOAT);
-            type = makeFloatType();
+        case KW_STRING:
+            eat(KW_STRING);
+            type = makeStringType();
             break;
         default:
             error(ERR_INVALID_BASICTYPE, lookAhead->lineNo, lookAhead->colNo);

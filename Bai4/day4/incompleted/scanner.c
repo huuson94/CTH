@@ -71,7 +71,7 @@ Token* readIdentKeyword(void) {
 
   if (token->tokenType == TK_NONE)
     token->tokenType = TK_IDENT;
-
+  
   return token;
 }
 

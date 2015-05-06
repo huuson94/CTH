@@ -28,15 +28,21 @@ Type* makeIntType(void) {
     return type;
 }
 
+Type* makeFloatType(void) {
+    Type* type = (Type*) malloc(sizeof (Type));
+    type->typeClass = TP_FLOAT;
+    return type;
+}
+
 Type* makeCharType(void) {
     Type* type = (Type*) malloc(sizeof (Type));
     type->typeClass = TP_CHAR;
     return type;
 }
 
-Type* makeFloatType(void) {
+Type* makeStringType(void) {
     Type* type = (Type*) malloc(sizeof (Type));
-    type->typeClass = TP_FLOAT;
+    type->typeClass = TP_STRING;
     return type;
 }
 

@@ -1,15 +1,19 @@
 PROGRAM  EXAMPLE4;  (* Example 4 *)
 CONST MAX = 10;
 TYPE T = INTEGER;
-	 V = FLOAT;
+	 	V = FLOAT;
+		S = STRING;
 VAR  A : ARRAY(. 10 .) OF T;
 	B : ARRAY(. 10 .) OF V;
-     N : INTEGER;
-     CH : CHAR;
+	C : ARRAY(. 10 .) OF S;
+     	N : INTEGER;
+     	CH : CHAR;
+	STR: STRING;
 	F: FLOAT;
 PROCEDURE INPUT;
 VAR I : INTEGER;
     TMP : INTEGER;
+	STR: STRING;
 BEGIN
   N := READI;
   FOR I := 1 TO N DO
