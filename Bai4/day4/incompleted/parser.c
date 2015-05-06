@@ -19,6 +19,7 @@ Token *lookAhead;
 extern Type* intType;
 extern Type* floatType;
 extern Type* charType;
+extern Type* stringType;
 extern SymTab* symtab;
 
 void scan(void) {
@@ -122,7 +123,7 @@ void compileBlock3(void) {
 
             varObj->varAttrs->type = varType;
             declareObject(varObj);
-
+            
             eat(SB_SEMICOLON);
         } while (lookAhead->tokenType == TK_IDENT);
 
@@ -676,7 +677,7 @@ Type* compileExpression2(void) {
 }
 
 Type* compileExpression3(void) {
-    Type* type1;
+    Type* type1 = NULL;
     Type* type2;
 
     switch (lookAhead->tokenType) {
@@ -797,6 +798,10 @@ Type* compileFactor(void) {
             eat(TK_CHAR);
             type = charType;
             break;
+        case TK_STRING:
+            eat(TK_STRING);
+            type = stringType;
+            break;    
         case TK_IDENT:
             eat(TK_IDENT);
             obj = checkDeclaredIdent(currentToken->string);
@@ -807,8 +812,14 @@ Type* compileFactor(void) {
                         case TP_INT:
                             type = intType;
                             break;
+                        case TP_FLOAT:
+                            type = floatType;
+                            break;    
                         case TP_CHAR:
                             type = charType;
+                            break;
+                        case TP_STRING:
+                            type = stringType;
                             break;
                         default:
                             break;

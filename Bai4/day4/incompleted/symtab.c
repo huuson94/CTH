@@ -20,6 +20,7 @@ SymTab* symtab;
 Type* intType;
 Type* charType;
 Type* floatType;
+Type* stringType;
 /******************* Type utilities ******************************/
 
 Type* makeIntType(void) {
@@ -79,9 +80,10 @@ void freeType(Type* type) {
         case TP_INT:
         case TP_CHAR:
         case TP_FLOAT:
+        case TP_STRING:    
             free(type);
             break;
-
+            
 
         case TP_ARRAY:
             freeType(type->elementType);
@@ -112,6 +114,14 @@ ConstantValue* makeFloatConstant(float f){
     value->floatValue = f;
     return value;
 }
+
+ConstantValue* makeStringConstant(char str[]){
+    ConstantValue* value = (ConstantValue*) malloc(sizeof (ConstantValue));
+    value->type = TP_FLOAT;
+    value->stringValue = str;
+    return value;
+}
+
 ConstantValue* duplicateConstantValue(ConstantValue* v) {
     ConstantValue* value = (ConstantValue*) malloc(sizeof (ConstantValue));
     value->type = v->type;
@@ -326,7 +336,7 @@ void initSymTab(void) {
     intType = makeIntType();
     floatType = makeFloatType();
     charType = makeCharType();
-    
+    stringType = makeStringType();
 }
 
 void cleanSymTab(void) {

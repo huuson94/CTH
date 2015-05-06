@@ -33,8 +33,10 @@ END;
 PROCEDURE OUTPUT1;
 VAR I : INTEGER;
 	S: FLOAT;
+	STR1: STRING;
 BEGIN
 	S:= 1.1;
+	STR1 := "test string";
   REPEAT
      BEGIN
        S := S + B(.I.);
