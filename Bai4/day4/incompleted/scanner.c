@@ -135,7 +135,7 @@ Token* readString(void){
     int i = 0;
     readChar();
     while(charCodes[currentChar] != CHAR_QUOTE){
-        readChar();printf("%c\n", currentChar);
+        readChar();
         if (currentChar == EOF) {
             token->tokenType = TK_NONE;
             error(ERR_INVALID_STRING, token->lineNo, token->colNo);
