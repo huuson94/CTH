@@ -12,12 +12,29 @@ VAR  A : ARRAY(. 10 .) OF T;
      	CH : CHAR;
 	STR: STRING;
 	F: FLOAT;
+
+FUNCTION SUM (N: INTEGER) : INTEGER;
+VAR I: INTEGER;
+    S : FLOAT;
+BEGIN
+    S := 1.1;
+    I := 1;
+    WHILE I <= N DO
+     BEGIN
+       S := S + B(.I.);
+       I := I + 1;
+     END
+END;
+
 PROCEDURE INPUT;
 VAR I : INTEGER;
+	J: INTEGER;
     TMP : INTEGER;
 	STR: STRING;
 BEGIN
   N := READI;
+	A(.I.),J := SUM(3,3),I*I;
+	
   FOR I := 1 TO N DO
      A(.I.) := READI;
 END;
@@ -46,18 +63,6 @@ BEGIN
      END UNTIL I <= N
 END;
 
-FUNCTION SUM : FLOAT;
-VAR I: INTEGER;
-    S : FLOAT;
-BEGIN
-    S := 1.1;
-    I := 1;
-    WHILE I <= N DO
-     BEGIN
-       S := S + B(.I.);
-       I := I + 1;
-     END
-END;
 
 BEGIN
    CH := 'y';
@@ -65,7 +70,7 @@ BEGIN
      BEGIN
        CALL INPUT;
        CALL OUTPUT;
-       CALL WRITEF(SUM);
+       CALL WRITEI(SUM(1));
        CH := READC;
      END
 END.  (* Example 4 *)

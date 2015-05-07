@@ -470,13 +470,34 @@ Type* compileLValue(void) {
 
 void compileAssignSt(void) {
     // TODO: parse the assignment and check type consistency
-    Type* varType;
-    Type* expType;
+    Type* varType1;
+    Type* varType2;
+    Type* expType1;
+    Type* expType2;
     
-    varType = compileLValue();
-    eat(SB_ASSIGN);
-    expType = compileExpression();
-    checkTypeEquality(varType, expType);
+    varType1 = compileLValue();
+    switch(lookAhead->tokenType){
+        case(SB_ASSIGN):
+            eat(SB_ASSIGN);
+            expType1 = compileExpression();
+            checkTypeEquality(varType1, expType1);
+            break;
+        case(SB_COMMA):
+            eat(SB_COMMA);
+            varType2 = compileLValue();
+            
+            eat(SB_ASSIGN);
+            expType1 = compileExpression();
+            eat(SB_COMMA);
+            expType2 = compileExpression();
+            
+            checkTypeEquality(varType1, expType1);
+            checkTypeEquality(varType2, expType2);
+            break;
+        default:
+            error(ERR_INVALID_SYMBOL, currentToken->lineNo, currentToken->colNo);
+            break;
+    }
 }
 
 void compileCallSt(void) {
@@ -591,7 +612,7 @@ void compileArguments(ObjectNode* paramList) {
         case KW_TO:
         case KW_DO:
         case SB_RPAR:
-        case SB_COMMA:
+//        case SB_COMMA:
         case SB_EQ:
         case SB_NEQ:
         case SB_LE:
@@ -839,7 +860,9 @@ Type* compileFactor(void) {
                     type = obj->paramAttrs->type;
                     break;
                 case OBJ_FUNCTION:
-                    compileArguments(obj->funcAttrs->paramList);
+                    if(checkParamFunction(obj) == 1){
+                        compileArguments(obj->funcAttrs->paramList);
+                    }
                     type = obj->funcAttrs->returnType;
                     break;
                 default:

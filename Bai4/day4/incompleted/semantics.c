@@ -157,3 +157,7 @@ void checkTypeEquality(Type* type1, Type* type2) {
         error(ERR_TYPE_INCONSISTENCY, currentToken->lineNo, currentToken->colNo);
 }
 
+int checkParamFunction(Object *func){
+    if(func->funcAttrs->paramList == NULL) return 0;
+    else return 1;
+}
