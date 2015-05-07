@@ -1,5 +1,7 @@
 PROGRAM  EXAMPLE4;  (* Example 4 *)
-CONST MAX = 10;
+CONST MAX = 10.1;
+	max1 = 1.1;
+	
 TYPE T = INTEGER;
 	 	V = FLOAT;
 		S = STRING;

@@ -131,6 +131,8 @@ ConstantValue* duplicateConstantValue(ConstantValue* v) {
         value->charValue = v->charValue;
     if (v->type == TP_FLOAT)
         value->floatValue = v->floatValue;
+    if (v->type == TP_STRING)
+        value->stringValue = v->stringValue;
     return value;
 }
 

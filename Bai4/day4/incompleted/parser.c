@@ -68,7 +68,7 @@ void compileBlock(void) {
 
             eat(SB_EQ);
             constValue = compileConstant();
-
+            
             constObj->constAttrs->value = constValue;
             declareObject(constObj);
 
@@ -245,6 +245,9 @@ ConstantValue* compileConstant(void) {
             eat(TK_CHAR);
             constValue = makeCharConstant(currentToken->string[0]);
             break;
+        case TK_STRING:
+            eat(TK_STRING);
+            constValue = makeStringConstant(currentToken->string);
         default:
             constValue = compileConstant2();
             break;
