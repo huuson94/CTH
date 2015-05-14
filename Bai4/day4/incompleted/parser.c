@@ -561,7 +561,8 @@ void compileForSt(void) {
 
 void compileRepeatSt(void) {
     eat(KW_REPEAT);
-    compileStatement();
+    if(lookAhead->tokenType != KW_UNTIL)
+        compileStatement();
     eat(KW_UNTIL);
     compileCondition();
 }

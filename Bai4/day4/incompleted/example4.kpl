@@ -33,7 +33,7 @@ VAR I : INTEGER;
 	STR: STRING;
 BEGIN
   N := READI;
-	A(.I.),J := SUM(3),I*I;
+	A(.I.),J := SUM(3,3),I*I;
 	
   FOR I := 1 TO N DO
      A(.I.) := READI;
@@ -57,10 +57,10 @@ BEGIN
 	S:= 1.1;
 	STR1 := "test string";
   REPEAT
-     (* BEGIN
+     BEGIN
        S := S + B(.I.);
        I := I + 1;
-     END *) UNTIL I <= N
+     END UNTIL I <= N
 END;
 
 
