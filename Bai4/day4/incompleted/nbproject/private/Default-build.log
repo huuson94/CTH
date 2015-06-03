@@ -1,0 +1,58 @@
+gcc -c -Wall main.c
+gcc -c -Wall parser.c
+parser.c: In function ‘compileLValue’:
+parser.c:421:5: error: too few arguments to function ‘compileIndexes’
+     compileIndexes();
+     ^
+In file included from parser.c:11:0:
+parser.h:55:7: note: declared here
+ Type* compileIndexes(Type* arrayType);
+       ^
+parser.c: In function ‘compileArguments’:
+parser.c:500:5: error: too few arguments to function ‘compileArgument’
+     compileArgument();
+     ^
+parser.c:489:6: note: declared here
+ void compileArgument(Object* param) {
+      ^
+parser.c:504:7: error: too few arguments to function ‘compileArgument’
+       compileArgument();
+       ^
+parser.c:489:6: note: declared here
+ void compileArgument(Object* param) {
+      ^
+parser.c: In function ‘compileExpression2’:
+parser.c:590:9: error: void value not ignored as it ought to be
+   type2 = compileExpression3();
+         ^
+parser.c: At top level:
+parser.c:599:7: error: conflicting types for ‘compileExpression3’
+ Type* compileExpression3(void) {
+       ^
+In file included from parser.c:11:0:
+parser.h:51:6: note: previous declaration of ‘compileExpression3’ was here
+ void compileExpression3(void);
+      ^
+parser.c: In function ‘compileFactor’:
+parser.c:718:7: error: too few arguments to function ‘compileIndexes’
+       compileIndexes();
+       ^
+In file included from parser.c:11:0:
+parser.h:55:7: note: declared here
+ Type* compileIndexes(Type* arrayType);
+       ^
+parser.c:723:7: error: too few arguments to function ‘compileArguments’
+       compileArguments();
+       ^
+parser.c:495:6: note: declared here
+ void compileArguments(ObjectNode* paramList) {
+      ^
+parser.c: In function ‘compileExpression3’:
+parser.c:643:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+parser.c: In function ‘compileIndexes’:
+parser.c:744:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+make: *** [parser.o] Error 1

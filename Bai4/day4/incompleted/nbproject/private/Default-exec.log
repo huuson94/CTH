@@ -1,0 +1,14 @@
+called: gcc
+	/home/hs/Compiler/Students/Bai4/day4/incompleted
+	gcc
+	-c
+	-Wall
+	main.c
+
+called: gcc
+	/home/hs/Compiler/Students/Bai4/day4/incompleted
+	gcc
+	-c
+	-Wall
+	parser.c
+

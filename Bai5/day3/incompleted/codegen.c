@@ -20,219 +20,239 @@ extern Object* writelnProcedure;
 CodeBlock* codeBlock;
 
 int computeNestedLevel(Scope* scope) {
-  // TODO
+    int level = 0;
+    Scope* tmp = symtab->currentScope;
+    while (tmp != scope) {
+        tmp = tmp->outer;
+        level++;
+    }
+    return level;
 }
 
 void genVariableAddress(Object* var) {
-  // TODO
+    int level = computeNestedLevel(VARIABLE_SCOPE(var));
+    int offset = VARIABLE_OFFSET(var);
+    genLA(level, offset);
 }
 
 void genVariableValue(Object* var) {
-  // TODO
+    int level = computeNestedLevel(VARIABLE_SCOPE(var));
+    int offset = VARIABLE_OFFSET(var);
+    genLV(level, offset);
 }
 
 void genParameterAddress(Object* param) {
-  // TODO
+    int level = computeNestedLevel(PARAMETER_SCOPE(param));
+    int offset = PARAMETER_OFFSET(param);
+    genLA(level, offset);
 }
 
 void genParameterValue(Object* param) {
-  // TODO
+    int level = computeNestedLevel(PARAMETER_SCOPE(param));
+    int offset = PARAMETER_OFFSET(param);
+    genLV(level, offset);
 }
 
 void genReturnValueAddress(Object* func) {
-  // TODO
+    int level = computeNestedLevel(FUNCTION_SCOPE(func));
+    int offset = RETURN_VALUE_OFFSET;
+    genLA(level, offset);
 }
 
 void genReturnValueValue(Object* func) {
-  // TODO
+    int level = computeNestedLevel(FUNCTION_SCOPE(func));
+    int offset = RETURN_VALUE_OFFSET;
+    genLV(level, offset);
 }
 
 void genPredefinedProcedureCall(Object* proc) {
-  if (proc == writeiProcedure)
-    genWRI();
-  else if (proc == writecProcedure)
-    genWRC();
-  else if (proc == writelnProcedure)
-    genWLN();
+    if (proc == writeiProcedure)
+        genWRI();
+    else if (proc == writecProcedure)
+        genWRC();
+    else if (proc == writelnProcedure)
+        genWLN();
 }
 
 void genProcedureCall(Object* proc) {
-  // TODO
+    int level = computeNestedLevel(proc->procAttrs->scope->outer);
+    genCALL(level, proc->procAttrs->codeAddress);
 }
 
 void genPredefinedFunctionCall(Object* func) {
-  if (func == readiFunction)
-    genRI();
-  else if (func == readcFunction)
-    genRC();
+    if (func == readiFunction)
+        genRI();
+    else if (func == readcFunction)
+        genRC();
 }
 
 void genFunctionCall(Object* func) {
-  // TODO
+    int level = computeNestedLevel(func->funcAttrs->scope->outer);
+    genCALL(level, func->funcAttrs->codeAddress);
 }
 
 void genLA(int level, int offset) {
-  emitLA(codeBlock, level, offset);
+    emitLA(codeBlock, level, offset);
 }
 
 void genLV(int level, int offset) {
-  emitLV(codeBlock, level, offset);
+    emitLV(codeBlock, level, offset);
 }
 
 void genLC(WORD constant) {
-  emitLC(codeBlock, constant);
+    emitLC(codeBlock, constant);
 }
 
 void genLI(void) {
-  emitLI(codeBlock);
+    emitLI(codeBlock);
 }
 
 void genINT(int delta) {
-  emitINT(codeBlock,delta);
+    emitINT(codeBlock, delta);
 }
 
 void genDCT(int delta) {
-  emitDCT(codeBlock,delta);
+    emitDCT(codeBlock, delta);
 }
 
 Instruction* genJ(CodeAddress label) {
-  Instruction* inst = codeBlock->code + codeBlock->codeSize;
-  emitJ(codeBlock,label);
-  return inst;
+    Instruction* inst = codeBlock->code + codeBlock->codeSize;
+    emitJ(codeBlock, label);
+    return inst;
 }
 
 Instruction* genFJ(CodeAddress label) {
-  Instruction* inst = codeBlock->code + codeBlock->codeSize;
-  emitFJ(codeBlock, label);
-  return inst;
+    Instruction* inst = codeBlock->code + codeBlock->codeSize;
+    emitFJ(codeBlock, label);
+    return inst;
 }
 
 void genHL(void) {
-  emitHL(codeBlock);
+    emitHL(codeBlock);
 }
 
 void genST(void) {
-  emitST(codeBlock);
+    emitST(codeBlock);
 }
 
 void genCALL(int level, CodeAddress label) {
-  emitCALL(codeBlock, level, label);
+    emitCALL(codeBlock, level, label);
 }
 
 void genEP(void) {
-  emitEP(codeBlock);
+    emitEP(codeBlock);
 }
 
 void genEF(void) {
-  emitEF(codeBlock);
+    emitEF(codeBlock);
 }
 
 void genRC(void) {
-  emitRC(codeBlock);
+    emitRC(codeBlock);
 }
 
 void genRI(void) {
-  emitRI(codeBlock);
+    emitRI(codeBlock);
 }
 
 void genWRC(void) {
-  emitWRC(codeBlock);
+    emitWRC(codeBlock);
 }
 
 void genWRI(void) {
-  emitWRI(codeBlock);
+    emitWRI(codeBlock);
 }
 
 void genWLN(void) {
-  emitWLN(codeBlock);
+    emitWLN(codeBlock);
 }
 
 void genAD(void) {
-  emitAD(codeBlock);
+    emitAD(codeBlock);
 }
 
 void genSB(void) {
-  emitSB(codeBlock);
+    emitSB(codeBlock);
 }
 
 void genML(void) {
-  emitML(codeBlock);
+    emitML(codeBlock);
 }
 
 void genDV(void) {
-  emitDV(codeBlock);
+    emitDV(codeBlock);
 }
 
 void genNEG(void) {
-  emitNEG(codeBlock);
+    emitNEG(codeBlock);
 }
 
 void genCV(void) {
-  emitCV(codeBlock);
+    emitCV(codeBlock);
 }
 
 void genEQ(void) {
-  emitEQ(codeBlock);
+    emitEQ(codeBlock);
 }
 
 void genNE(void) {
-  emitNE(codeBlock);
+    emitNE(codeBlock);
 }
 
 void genGT(void) {
-  emitGT(codeBlock);
+    emitGT(codeBlock);
 }
 
 void genGE(void) {
-  emitGE(codeBlock);
+    emitGE(codeBlock);
 }
 
 void genLT(void) {
-  emitLT(codeBlock);
+    emitLT(codeBlock);
 }
 
 void genLE(void) {
-  emitLE(codeBlock);
+    emitLE(codeBlock);
 }
 
 void updateJ(Instruction* jmp, CodeAddress label) {
-  jmp->q = label;
+    jmp->q = label;
 }
 
 void updateFJ(Instruction* jmp, CodeAddress label) {
-  jmp->q = label;
+    jmp->q = label;
 }
 
 CodeAddress getCurrentCodeAddress(void) {
-  return codeBlock->codeSize;
+    return codeBlock->codeSize;
 }
 
 int isPredefinedFunction(Object* func) {
-  return ((func == readiFunction) || (func == readcFunction));
+    return ((func == readiFunction) || (func == readcFunction));
 }
 
 int isPredefinedProcedure(Object* proc) {
-  return ((proc == writeiProcedure) || (proc == writecProcedure) || (proc == writelnProcedure));
+    return ((proc == writeiProcedure) || (proc == writecProcedure) || (proc == writelnProcedure));
 }
 
 void initCodeBuffer(void) {
-  codeBlock = createCodeBlock(CODE_SIZE);
+    codeBlock = createCodeBlock(CODE_SIZE);
 }
 
 void printCodeBuffer(void) {
-  printCodeBlock(codeBlock);
+    printCodeBlock(codeBlock);
 }
 
 void cleanCodeBuffer(void) {
-  freeCodeBlock(codeBlock);
+    freeCodeBlock(codeBlock);
 }
 
 int serialize(char* fileName) {
-  FILE* f;
+    FILE* f;
 
-  f = fopen(fileName, "wb");
-  if (f == NULL) return IO_ERROR;
-  saveCode(codeBlock, f);
-  fclose(f);
-  return IO_SUCCESS;
+    f = fopen(fileName, "wb");
+    if (f == NULL) return IO_ERROR;
+    saveCode(codeBlock, f);
+    fclose(f);
+    return IO_SUCCESS;
 }

@@ -72,5 +72,6 @@ BEGIN
        CALL OUTPUT;
        CALL WRITEI(SUM(1));
        CH := READC;
-     END
+     END;
+	N:=SUM(10);
 END.  (* Example 4 *)

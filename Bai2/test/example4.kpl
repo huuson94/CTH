@@ -1,39 +1,69 @@
-PROGRAM  EXAMPLE3;  (* TOWER OF HANOI *)
-VAR  I:INTEGER;  
-     N:INTEGER;  
-     P:INTEGER;  
-     Q:INTEGER;
-     C:CHAR;
-
-PROCEDURE  HANOI(N:INTEGER;  S:INTEGER;  Z:INTEGER);
+PROGRAM  EXAMPLE4;  (* Example 4 *)
+CONST MAX = 10;
+TYPE T = INTEGER;
+	 	V = FLOAT;
+		S = STRING;
+VAR  A : ARRAY(. 10 .) OF T;
+	B : ARRAY(. 10 .) OF V;
+	C : ARRAY(. 10 .) OF S;
+     	N : INTEGER;
+     	CH : CHAR;
+	STR: STRING;
+	F: FLOAT;
+PROCEDURE INPUT;
+VAR I : INTEGER;
+    TMP : INTEGER;
+	STR: STRING;
 BEGIN
-  IF  N ! = 0  THEN
-    BEGIN
-      CALL  HANOI(N-1,S,6-S-Z);
-      I:=I+1;  
-      CALL  WRITELN;
-      CALL  WRITEI(I);  
-      CALL  WRITEI(N);
-      CALL  WRITEI(S);  
-      CALL  WRITEI(Z);
-      CALL  HANOI(N-1,6-S-Z,Z)
-    END
-END;  (*END OF HANOI*)
+  N := READI;
+  FOR I := 1 TO N DO
+     A(.I.) := READI;
+END;
+
+PROCEDURE OUTPUT;
+VAR I : INTEGER;
+BEGIN
+  FOR I := 1 TO N DO
+     BEGIN
+       CALL WRITEI(A(.I.));
+       CALL WRITELN;
+     END
+END;
+
+PROCEDURE OUTPUT1;
+VAR I : INTEGER;
+	S: FLOAT;
+	STR1: STRING;
+BEGIN
+	S:= 1.1;
+	STR1 := "";
+  REPEAT
+     BEGIN
+       S := S + B(.I.);
+       I := I + 1;
+     END UNTIL I <= N
+END;
+
+FUNCTION SUM : FLOAT;
+VAR I: INTEGER;
+    S : FLOAT;
+BEGIN
+    S := 1.1;
+    I := 1;
+    WHILE I <= N DO
+     BEGIN
+       S := S + B(.I.);
+       I := I + 1;
+     END
+END;
 
 BEGIN
-  FOR  N := 1  TO  4  DO  
-    BEGIN
-      FOR  I:=1  TO  4  DO  
-        CALL  WRITEC(' ');
-      CALL  READC(C);  
-      CALL  WRITEC(C)
-    END;
-  P:=1;  
-  Q:=2;
-  FOR  N:=2  TO  4  DO
-    BEGIN  
-      I:=0;  
-      CALL  HANOI(N,P,Q);  
-      CALL  WRITELN  
-    END
-END.  (* TOWER OF HANOI *)
+   CH := 'y';
+   WHILE CH = 'y' DO
+     BEGIN
+       CALL INPUT;
+       CALL OUTPUT;
+       CALL WRITEF(SUM);
+       CH := READC;
+     END
+END.  (* Example 4 *)

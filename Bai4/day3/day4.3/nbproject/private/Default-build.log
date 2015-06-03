@@ -1,0 +1,55 @@
+gcc -c -Wall main.c
+gcc -c -Wall parser.c
+parser.c: In function ‘compileUnsignedConstant’:
+parser.c:212:11: warning: unused variable ‘obj’ [-Wunused-variable]
+   Object* obj;
+           ^
+parser.c: In function ‘compileConstant2’:
+parser.c:261:11: warning: unused variable ‘obj’ [-Wunused-variable]
+   Object* obj;
+           ^
+parser.c: In function ‘compileType’:
+parser.c:283:11: warning: unused variable ‘obj’ [-Wunused-variable]
+   Object* obj;
+           ^
+gcc -c -Wall scanner.c
+gcc -c -Wall reader.c
+gcc -c -Wall charcode.c
+gcc -c -Wall token.c
+gcc -c -Wall error.c
+gcc -c -Wall symtab.c
+gcc -c -Wall semantics.c
+semantics.c: In function ‘lookupObject’:
+semantics.c:17:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+semantics.c: In function ‘checkDeclaredIdent’:
+semantics.c:25:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+semantics.c: In function ‘checkDeclaredConstant’:
+semantics.c:29:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+semantics.c: In function ‘checkDeclaredType’:
+semantics.c:33:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+semantics.c: In function ‘checkDeclaredVariable’:
+semantics.c:37:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+semantics.c: In function ‘checkDeclaredFunction’:
+semantics.c:41:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+semantics.c: In function ‘checkDeclaredProcedure’:
+semantics.c:45:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+semantics.c: In function ‘checkDeclaredLValueIdent’:
+semantics.c:49:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+gcc -c -Wall debug.c
+gcc main.o parser.o scanner.o reader.o charcode.o token.o error.o symtab.o semantics.o debug.o -o kplc

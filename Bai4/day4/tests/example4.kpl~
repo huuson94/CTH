@@ -1,0 +1,77 @@
+PROGRAM  EXAMPLE4;  (* Example 4 *)
+CONST MAX = 10.1;
+	max1 = 1.1;
+	
+TYPE T = INTEGER;
+	 	V = FLOAT;
+		S = STRING;
+VAR  A : ARRAY(. 10 .) OF T;
+	B : ARRAY(. 10 .) OF V;
+	C : ARRAY(. 10 .) OF S;
+     	N : INTEGER;
+     	CH : CHAR;
+	STR: STRING;
+	F: FLOAT;
+
+FUNCTION SUM (N: INTEGER) : INTEGER;
+VAR I: INTEGER;
+    S : FLOAT;
+BEGIN
+    S := 1.1;
+    I := 1;
+    WHILE I <= N DO
+     BEGIN
+       S := S + B(.I.);
+       I := I + 1;
+     END
+END;
+
+PROCEDURE INPUT;
+VAR I : INTEGER;
+	J: INTEGER;
+    TMP : INTEGER;
+	STR: STRING;
+BEGIN
+  N := READI;
+	A(.I.),J := SUM(3),I*I;
+	
+  FOR I := 1 TO N DO
+     A(.I.) := READI;
+END;
+
+PROCEDURE OUTPUT;
+VAR I : INTEGER;
+BEGIN
+  FOR I := 1 TO N DO
+     BEGIN
+       CALL WRITEI(A(.I.));
+       CALL WRITELN;
+     END
+END;
+
+PROCEDURE OUTPUT1;
+VAR I : INTEGER;
+	S: FLOAT;
+	STR1: STRING;
+BEGIN
+	S:= 1.1;
+	STR1 := "test string";
+  REPEAT
+     (* BEGIN
+       S := S + B(.I.);
+       I := I + 1;
+     END *) UNTIL I <= N
+END;
+
+
+BEGIN
+   CH := 'y';
+   WHILE CH = 'y' DO
+     BEGIN
+       CALL INPUT;
+       CALL OUTPUT;
+       CALL WRITEI(SUM(1));
+       CH := READC;
+     END
+	N:=SUM(10);
+END.  (* Example 4 *)
