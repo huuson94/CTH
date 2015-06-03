@@ -122,7 +122,19 @@ void checkIntType(Type* type) {
     return;
   else error(ERR_TYPE_INCONSISTENCY, currentToken->lineNo, currentToken->colNo);
 }
+void checkFLoatType(Type* type) {
 
+    if ((type != NULL) && (type->typeClass == TP_FLOAT))
+        return;
+    else error(ERR_TYPE_INCONSISTENCY, currentToken->lineNo, currentToken->colNo);
+}
+
+void checkNumberType(Type* type) {
+
+    if ((type != NULL) && (type->typeClass == TP_INT || type->typeClass == TP_FLOAT))
+        return;
+    else error(ERR_TYPE_INCONSISTENCY, currentToken->lineNo, currentToken->colNo);
+}
 void checkCharType(Type* type) {
   if ((type != NULL) && (type->typeClass == TP_CHAR))
     return;
@@ -145,5 +157,8 @@ void checkTypeEquality(Type* type1, Type* type2) {
   if (compareType(type1, type2) == 0)
     error(ERR_TYPE_INCONSISTENCY, currentToken->lineNo, currentToken->colNo);
 }
-
+int checkParamFunction(Object *func){
+    if(func->funcAttrs->paramList == NULL) return 0;
+    else return 1;
+}
 

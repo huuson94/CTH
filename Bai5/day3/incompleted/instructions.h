@@ -14,7 +14,7 @@
 #define DC_VALUE 0
 #define INT_SIZE 1
 #define CHAR_SIZE 1
-
+#define FLOAT_SIZE 2
 typedef int WORD;
 
 enum OpCode {
