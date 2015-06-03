@@ -220,10 +220,14 @@ Token* getToken(void) {
             ln = lineNo;
             cn = colNo;
             readChar();
-            if ((currentChar != EOF) && (charCodes[currentChar] == CHAR_RPAR)) {
+            if (charCodes[currentChar] == CHAR_RPAR) {
                 readChar();
                 return makeToken(SB_RSEL, ln, cn);
-            } else return makeToken(SB_PERIOD, ln, cn);
+            }
+            
+            token = makeToken(SB_PERIOD, ln, cn);
+            readChar();
+            return token;
         case CHAR_SEMICOLON:
             token = makeToken(SB_SEMICOLON, lineNo, colNo);
             readChar();
